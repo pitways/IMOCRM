@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+
+    <h2>Properties 2</h2>
+    {% if properties %}
+        {% for property in properties %}
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        {% if property.photo %}
+                            <img src="{{ url_for('static', filename='photos/' + property.photo) }}" alt="Property Photo">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ property.address }}</h5>
+                            <p class="card-text">{{ property.description }}</p>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Property Type: {{ property.property_type }}</li>
+                                <li class="list-group-item">Price: ${{ property.price }}</li>
+                            </ul>
+                            <a href="{{ url_for('edit_property', id=property.id) }}" class="btn btn-primary">Edit</a>
+                            <a href="{{ url_for('delete_property', id=property.id) }}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No properties found.</p>
+    {% endif %}
+{% endblock %}
